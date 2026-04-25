@@ -1,0 +1,22 @@
+{
+  // Worker name — must match the deployed Cloudflare Worker name exactly
+  "name": "robotics",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2024-09-23",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // Static assets served by Cloudflare (Next.js public/ and _next/static)
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+
+  // WORKER_SELF_REFERENCE is required by OpenNext so the Worker can
+  // invoke itself for ISR / revalidation — must match "name" above
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "robotics"
+    }
+  ]
+}

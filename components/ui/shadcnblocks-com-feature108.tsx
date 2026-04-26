@@ -1,3 +1,5 @@
+'use client';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
 import { Cpu, Fingerprint, Network } from "lucide-react";
 import { Badge } from "@/components/ui/badge";

@@ -1,7 +1,7 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Navbar1 } from "@/components/ui/navbar-1";
-import { SplineScene } from "@/components/ui/splite";
 import {
   Card,
   CardHeader,
@@ -15,8 +15,23 @@ import { EvervaultCard, Icon } from "@/components/ui/evervault-card";
 import { Feature108 } from "@/components/ui/shadcnblocks-com-feature108";
 import { LogoCloud } from "@/components/ui/logo-cloud-2";
 import { TestimonialsColumn } from "@/components/ui/testimonials-columns-1";
-import { WorldMap } from "@/components/ui/world-map";
 import { FaqsSection } from "@/components/ui/faqs-1";
+
+const SplineScene = dynamic(
+  () => import("@/components/ui/splite").then((m) => m.SplineScene),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <span className="loader"></span>
+      </div>
+    ),
+  }
+);
+const WorldMap = dynamic(
+  () => import("@/components/ui/world-map").then((m) => m.WorldMap),
+  { ssr: false }
+);
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
@@ -722,20 +737,15 @@ export default function Home() {
           heading={
             <>
               Intelligence deployed across{" "}
-              <span className="text-muted-foreground">
-                {"6 continents".split("").map((char, idx) => (
-                  <motion.span
-                    key={idx}
-                    className="inline-block"
-                    initial={{ x: -8, opacity: 0 }}
-                    whileInView={{ x: 0, opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.03 }}
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
+              <motion.span
+                className="text-muted-foreground"
+                initial={{ opacity: 0, x: -8 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                6 continents
+              </motion.span>
             </>
           }
           sub="Robotics deployments and AI model inference nodes spanning every major industrial region on Earth."
